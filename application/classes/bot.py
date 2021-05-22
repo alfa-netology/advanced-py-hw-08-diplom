@@ -14,6 +14,7 @@ class Bot:
         self.vk_api = authorize.get_api()
 
     def start(self):
+        # to do: добавить проверку на разрыв соединения со стороны VK
         for event in self.longpoll.listen():
             if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
                 received_message = event.text.lower().strip()
