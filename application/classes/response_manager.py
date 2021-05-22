@@ -8,7 +8,7 @@ class ResponseManager:
         if received_message in Commands.start.value:
             message = f'Приветствую тебя, {sender_name}!\n' \
                       f'Отправь мне одну из этих команд:\n' \
-                      f'Меню, Поиск, Картинка или Пока &#128521;'
+                      f'Меню, Поиск, Картинка или Пока'
             return dict(message=message)
 
         elif received_message in Commands.show_keyboard.value:
@@ -24,6 +24,7 @@ class ResponseManager:
             return dict(sticker_id='3143')
 
         elif received_message in Commands.picture.value:
+            # to do: пересмореть данный метод (упростить)
             image = "application/images/logo.jpg"
             attachments = list()
             upload_image = upload.photo_messages(photos=image)[0]
@@ -31,6 +32,5 @@ class ResponseManager:
             return dict(message='Изображение отправлено', attachments=attachments)
 
         else:
-            message = 'Неизвестная команда.\n Доступные команды:\n' \
-                      'Меню, Убрать меню, Поиск, Картинка.'
+            message = 'Неизвестная команда.\n Доступные команды:\nМеню, Поиск, Картинка, Пока'
             return dict(message=message)

@@ -8,19 +8,19 @@ from application.classes.response_manager import ResponseManager
 class Bot:
     def __init__(self, api_token):
         authorize = vk_api.VkApi(token=api_token)
-        self.dispatcher = ResponseManager()
         self.longpoll = VkLongPoll(authorize)
         self.upload = VkUpload(authorize)
         self.vk_api = authorize.get_api()
 
     def start(self):
         # to do: добавить проверку на разрыв соединения со стороны VK
+        dispatcher = ResponseManager()
         for event in self.longpoll.listen():
             if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
                 received_message = event.text.lower().strip()
                 sender_name = self._get_user_name(event.user_id)
 
-                message = self.dispatcher.process_message(received_message, sender_name, self.upload)
+                message = dispatcher.process_message(received_message, sender_name, self.upload)
                 self._send_message(sender_id=event.user_id, **message)
 
     def _send_message(self, sender_id='', message='', attachments='', keyboard='', sticker_id=''):
