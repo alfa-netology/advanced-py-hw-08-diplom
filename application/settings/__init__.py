@@ -3,6 +3,6 @@ import os
 
 if load_env_values():
     api_token = os.getenv('api_token')
-    group_id = os.getenv('group_id')
+    api_version = os.getenv('api_version')
     vk_login = os.getenv('vk_login')
     vk_password = os.getenv('vk_password')
